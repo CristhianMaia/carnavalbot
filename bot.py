@@ -1,4 +1,4 @@
-import auth
+import auth, bar
 import threading, time
 import datetime
 from random import randrange
@@ -38,14 +38,21 @@ def bot():
     print("vazio")
     emojis = emoji[1][1]
 
-  texto = "Faltam {} dias para o carnaval de 2020! {}".format(final, emojis)
+  print("------------------------")
+  print(ayear)
+  value = int(((ayear-int(daysleft))*100)/ayear)
+  print("{}% ja se foi".format(value))
+  bar.main(value)
+  print("------------------------")
+
+  texto = "Faltam {} dias para o carnaval de {}! {}\n{}% do periodo.".format(final, year, emojis, value)
 
   print(texto)
-  texto_rio = "E {} dias para os 50 dias de carnaval no RJ.".format(final_rio)
-  print(texto_rio)
+  # texto_rio = "E {} dias para os 50 dias de carnaval no RJ.".format(final_rio)
+  # print(texto_rio)
   try:
     print("postando no try")
-    api.update_status(status=texto)
+    api.update_with_media("./img/bar_final.jpeg", status=texto)
   finally:
     last_post = dtnow
     print("Postou! no horario:")
@@ -90,7 +97,9 @@ def main():
  
 number_emoji = ['0️⃣', '1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣']
 emoji = [['💃', '🌈', '🎆'], ['🎉', '🎉🎊'], ['🎭']]
-carnaval = datetime.datetime(2020,2,21)
-carnaval_rio = datetime.datetime(2020,1,12)
+year = 2020
+carnaval = datetime.datetime(year,2,21)
+ayear = int((datetime.datetime(year,12,31) - datetime.datetime(year,1,1)).days)
+carnaval_rio = datetime.datetime(year,1,12)
 qtd = 0
 main()
