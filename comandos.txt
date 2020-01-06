@@ -1,0 +1,7 @@
+se esquecer ta ae fodase
+
+
+nohup python3 -u bot.py &
+cat nohup.out
+ps -ef
+kill
