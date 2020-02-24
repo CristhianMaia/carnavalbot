@@ -5,27 +5,14 @@ from random import randrange
 
 api = auth.main()
 
-def bot():
-  dtnow = datetime.datetime.now()
-
-  print("")
-  print(carnaval)
-  print(carnaval_rio)
-  print(dtnow)
-
-  daysleft = str((carnaval - dtnow).days+1)
-  daysleft_rio = str((carnaval_rio - dtnow).days+1)
-
+def number_to_emoji(dias):
   final = ''
-  for n in range(len(daysleft)):
-    number = int(daysleft[n])
+  for n in range(len(dias)):
+    number = int(dias[n])
     final += str(number_emoji[number])
+  return final
 
-  final_rio = ''
-#  for n in range(len(daysleft_rio)):
-#    number = int(daysleft_rio[n])
-#    final_rio += str(number_emoji[number])
-
+def random_emoji():
   emojis = ''
   for n in range(3):
     random = randrange(4)
@@ -38,21 +25,10 @@ def bot():
     print("vazio")
     emojis = emoji[1][1]
 
-  print("------------------------")
-  print(ayear)
-  value = int(((ayear-int(daysleft))*100)/ayear)
-  print("{}% ja se foi".format(value))
-  bar.main(value)
-  print("------------------------")
-
-  texto = "Faltam {} dias para o carnaval de {}! {}\n{}% do periodo.".format(final, year, emojis, value)
-
-  print(texto)
-  # texto_rio = "E {} dias para os 50 dias de carnaval no RJ.".format(final_rio)
-  # print(texto_rio)
+def publish(texto, dtnow):
   try:
     print("postando no try")
-    api.update_with_media("./img/bar_final.jpeg", status=texto)
+    # api.update_with_media("./img/bar_final.jpeg", status=texto)
   finally:
     last_post = dtnow
     print("Postou! no horario:")
@@ -61,10 +37,38 @@ def bot():
     print("------------------------------FIM------------------------------")
     time.sleep(20)
 
+def bot():
+  dtnow = datetime.datetime.now()
+  print("")
+  print(carnaval)
+  print(dtnow)
+
+  daysleft = str((carnaval - dtnow).days+1)
+
+  final = number_to_emoji(daysleft)
+
+  emojis = random_emoji()
+
+  print("------------------------")
+  print(ayear)
+  print("referente ao carnaval do ano passado")
+
+  value = int(((ayear-int(daysleft))*100)/ayear)
+  print("{}% ja se foi".format(value))
+
+  bar.main(value)
+
+  print("------------------------")
+
+  texto = "Faltam {} dias para o carnaval de {}! {}\n{}% do periodo.".format(final, year, emojis, value)
+  print(texto)
+
+  publish(texto, dtnow)
+
 def main():
   while True:
     date_now = datetime.datetime.now()
-    next_post = datetime.datetime.now().replace(hour=11, minute=30, second=0, microsecond=0)
+    next_post = datetime.datetime.now().replace(hour=9, minute=0, second=0, microsecond=0)
     if date_now>next_post:
       next_post += datetime.timedelta(days=1)
 
@@ -88,7 +92,7 @@ def main():
     print("----------------------------")
     print("Sleep Setado")
     print(datetime.datetime.now())
-    time.sleep(diferenca+5)
+    # time.sleep(diferenca+5)
     print("Irá Postar")
     print(datetime.datetime.now())
     print("")
@@ -97,9 +101,9 @@ def main():
  
 number_emoji = ['0️⃣', '1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣']
 emoji = [['💃', '🌈', '🎆'], ['🎉', '🎉🎊'], ['🎭']]
-year = 2020
-carnaval = datetime.datetime(year,2,21)
-ayear = int((datetime.datetime(year,12,31) - datetime.datetime(year,1,1)).days)
-carnaval_rio = datetime.datetime(year,1,12)
+year = 2021
+carnaval = datetime.datetime(year,2,12)
+ayear = int((datetime.datetime((year),2,12) - datetime.datetime((year-1),2,21)).days)
 qtd = 0
+
 main()
