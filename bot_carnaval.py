@@ -28,7 +28,7 @@ def random_emoji():
 def publish(texto, dtnow):
   try:
     print("postando no try")
-    # api.update_with_media("./img/bar_final.jpeg", status=texto)
+    api.update_with_media("./img/bar_final.jpeg", status=texto)
   finally:
     last_post = dtnow
     print("Postou! no horario:")
