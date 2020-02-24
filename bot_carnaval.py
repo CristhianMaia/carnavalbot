@@ -92,7 +92,7 @@ def main():
     print("----------------------------")
     print("Sleep Setado")
     print(datetime.datetime.now())
-    # time.sleep(diferenca+5)
+    time.sleep(diferenca+5)
     print("Irá Postar")
     print(datetime.datetime.now())
     print("")
