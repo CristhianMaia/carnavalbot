@@ -22,9 +22,9 @@ def bot():
     final += str(number_emoji[number])
 
   final_rio = ''
-  for n in range(len(daysleft_rio)):
-    number = int(daysleft_rio[n])
-    final_rio += str(number_emoji[number])
+#  for n in range(len(daysleft_rio)):
+#    number = int(daysleft_rio[n])
+#    final_rio += str(number_emoji[number])
 
   emojis = ''
   for n in range(3):
@@ -64,7 +64,7 @@ def bot():
 def main():
   while True:
     date_now = datetime.datetime.now()
-    next_post = datetime.datetime.now().replace(hour=9, minute=0, second=0, microsecond=0)
+    next_post = datetime.datetime.now().replace(hour=11, minute=30, second=0, microsecond=0)
     if date_now>next_post:
       next_post += datetime.timedelta(days=1)
 
