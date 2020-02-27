@@ -25,6 +25,8 @@ def random_emoji():
     print("vazio")
     emojis = emoji[1][1]
 
+  return emojis
+
 def publish(texto, dtnow):
   try:
     print("postando no try")
